@@ -1,0 +1,473 @@
+GET /job_livedata__all/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "exists": {
+                        "field": "newdata"
+                    }
+                }
+            ]
+        }
+    },
+    "aggs": {
+        "group_by_state": {
+            "terms": {
+                "size": 10000000,
+                "script": "doc['siteCode'].value+'___'+doc['serviceCode']+'___'+doc['qslot'].value+'___'+doc['tier'].value+'___'+doc['projectName'].value+'___'+doc['projectID'].value+'___'+doc['user'].value"
+            },
+            "aggs": {
+                "average_wait": {
+                    "avg": {
+                        "field": "wait"
+                    }
+                },
+                "max_wait": {
+                    "max": {
+                        "field": "wait"
+                    }
+                },
+                "feeder_wait_avg": {
+                    "avg": {
+                        "field": "feederWaitTime"
+                    }
+                },
+                "memory": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "memory": {
+                            "avg": {
+                                "field": "memory"
+                            }
+                        }
+                    }
+                },
+                "average_memory_actual": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "average_memory_actual": {
+                            "avg": {
+                                "field": "memory_actual"
+                            }
+                        }
+                    }
+                },
+                "average_efficiency": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "average_efficiency": {
+                            "avg": {
+                                "field": "efficiency"
+                            }
+                        }
+                    }
+                },
+                "total_memory_actual": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "total_memory_actual": {
+                            "sum": {
+                                "field": "memory_actual"
+                            }
+                        }
+                    }
+                },
+                "total_memory": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "total_memory": {
+                            "sum": {
+                                "field": "memory"
+                            }
+                        }
+                    }
+                },
+                "total_maxrss": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "total_maxrss": {
+                            "sum": {
+                                "field": "maxrss"
+                            }
+                        }
+                    }
+                },
+                "total_sutime": {
+                    "sum": {
+                        "script": "doc['stime'].value+doc['utime'].value"
+                    }
+                },
+                "total_wtime": {
+                    "sum": {
+                        "field": "wtime"
+                    }
+                },
+                "failedjobs": {
+                    "filter": {
+                        "bool": {
+                            "must_not": [
+                                {
+                                    "term": {
+                                        "exitstatus": 0
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "cpuoverutilized": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "range": {
+                                        "efficiency": {
+                                            "gte": 1.5
+                                        }
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "term": {
+                                        "stime": 0
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "utime": 0
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "wtime": 0
+                                    }
+                                },
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "cpuunderutilized": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "range": {
+                                        "efficiency": {
+                                            "lte": 0.5
+                                        }
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "term": {
+                                        "stime": 0
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "utime": 0
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "wtime": 0
+                                    }
+                                },
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "memoryunderutilized": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "range": {
+                                        "memory": {
+                                            "lte": 0.5
+                                        }
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "memoryoverutilized": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "range": {
+                                        "memory": {
+                                            "gte": 1.5
+                                        }
+                                    }
+                                },
+                                {
+                                    "term": {
+                                        "delegate": "false"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "terms": {
+                                        "exitstatus": [
+                                            -303,
+                                            -7,
+                                            -4
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                "noOfWaitingJobs": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "match": {
+                                        "status": "Wait"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "waitCoreReserveTotal": {
+                            "sum": {
+                                "field": "cores"
+                            }
+                        },
+                        "totalJobSlots": {
+                            "sum": {
+                                "field": "jobSlots"
+                            }
+                        }
+                    }
+                },
+                "noOfRunningJobs": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "match": {
+                                        "status": "Run"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "runCoreReserveTotal": {
+                            "sum": {
+                                "field": "cores"
+                            }
+                        },
+                        "totalJobSlots": {
+                            "sum": {
+                                "field": "jobSlots"
+                            }
+                        }
+                    }
+                },
+                "noOfSuspendedJobs": {
+                    "filter": {
+                        "bool": {
+                            "must": [
+                                {
+                                    "match": {
+                                        "status": "Susp"
+                                    }
+                                }
+                            ],
+                            "must_not": [
+                                {
+                                    "match": {
+                                        "status": "Wait"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "aggs": {
+                        "suspCoreReserveTotal": {
+                            "sum": {
+                                "field": "cores"
+                            }
+                        },
+                        "totalJobSlots": {
+                            "sum": {
+                                "field": "jobSlots"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

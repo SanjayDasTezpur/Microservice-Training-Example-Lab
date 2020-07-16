@@ -1,0 +1,13 @@
+server:
+  port: 8083
+
+  
+spring:
+  application:
+    name: other-microservice
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      
+  

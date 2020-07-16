@@ -1,0 +1,70 @@
+<project name="hibernate-tutorial" default="compile">
+
+    <property name="sourcedir" value="${basedir}/src"/>
+    <property name="targetdir" value="${basedir}/build"/>
+    <property name="librarydir" value="${basedir}/lib"/>
+<property name="hibernate.dialect"  value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+        <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+        <property name="hibernate.connection.url" value="jdbc:mysql://localhost/helloworld"/>
+        <property name="hibernate.connection.username" value="root"/>
+        <property name="hibernate.connection.password" value="root"/>
+		<property name="hibernate.hbm2ddl.auto" value="update"/>
+    <path id="libraries">
+        <fileset dir="${librarydir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${targetdir}"/>
+        <mkdir dir="${targetdir}"/>
+    </target>
+
+    <target name="compile" depends="clean, copy-resources">
+      <javac srcdir="${sourcedir}"
+             destdir="${targetdir}"
+             classpathref="libraries"
+             debug="on"/>
+    </target>
+
+    <target name="copy-resources">
+        <copy todir="${targetdir}">
+            <fileset dir="${sourcedir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="run" depends="compile">
+    <java classname="Main" fork="true" classpathref="libraries">
+        <classpath path="${targetdir}"/>
+        <arg value="${action}"/>
+    </java>
+   </target>
+    <target name="hbm" depends="compile">
+        <taskdef
+            name="hibernatedoclet"
+            classname="xdoclet.modules.hibernate.HibernateDocletTask"
+            classpathref="libraries"
+            />
+        <hibernatedoclet
+            destdir="${basedir}/src"
+            verbose="true">
+            <fileset dir="${sourcedir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <hibernate version="3.0"/>
+            <hibernatecfg
+                dialect="${hibernate.dialect}"
+                jdbcUrl="${hibernate.connection.url}"
+                driver="${hibernate.connection.driver_class}"
+                userName="${hibernate.connection.username}"
+                password="${hibernate.connection.password}"
+                hbm2ddl="update"
+                showSql="true"
+                version="3.0"
+                />
+        </hibernatedoclet>
+    </target>
+       
+
+</project>

@@ -1,0 +1,37 @@
+Test the application
+--------------------
+
+
+1. top level service (GET)
+http://localhost:8080
+
+2. to get people details (GET)
+http://localhost:8080/people
+
+3. to create a new person (POST)
+
+http://localhost:8080/people
+
+Headers 
+Content-Type: application/json
+
+Body
+{  "firstName" : "Venkata",  "lastName" : "Ramana" }
+
+4. To display all custom queries 
+
+http://localhost:8080/people/search
+
+
+5. To use the findByLastName query
+
+http://localhost:8080/people/search/findByLastName?name=Ramana
+
+
+
+@RepositoryRestResource since this creates a HATEOAS service with Spring JPA. As you can see here adding this annotation and 
+linking it to your Pojo you have a fully functional HATEOAS service without having to implement the repository method or the 
+REST service methods
+
+
+

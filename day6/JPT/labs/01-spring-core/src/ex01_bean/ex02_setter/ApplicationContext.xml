@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+        
+<bean id="sample" class="ex01_bean.ex02_setter.Sample" init-method="init" scope="prototype">
+<property name="msg">
+<value>god is great</value>
+</property>
+
+</bean>
+
+
+<bean class="ex01_bean.ex02_setter.CustomProcessor"/>
+
+<bean id="sample2" class="ex01_bean.ex02_setter.Sample2" scope="prototype"/>
+
+
+</beans>

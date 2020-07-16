@@ -1,0 +1,1820 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0057)http://www.infoq.com/articles/Simplifying-Enterprise-Apps -->
+<HTML><HEAD><TITLE>InfoQ: Simplifying Enterprise Applications with Spring 2.0 and AspectJ</TITLE>
+<META http-equiv=pragma content=no-cache>
+<META http-equiv=cache-control content=no-cache>
+<META http-equiv=expires content=0>
+<META http-equiv=content-type content="text/html; charset=utf-8">
+<META content="© 2006 C4Media" name=copyright>
+<META content=alex[at]c4media[dot]com name=author><LINK media=screen 
+href="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/style.css" 
+type=text/css rel=stylesheet><LINK media=print 
+href="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/print.css" 
+type=text/css rel=stylesheet><!--[if IE]><LINK media=screen 
+href="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/style-ie.css" 
+type=text/css rel=stylesheet><![endif]--><LINK href="/favicon.ico" 
+type=image/x-icon rel="shortcut icon">
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/commons.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/ContentSummary.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/CategoryManagement.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/engine.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/util.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/UserCategoryUtil.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/DWRRewriteAction.js" 
+type=text/javascript></SCRIPT>
+
+<META 
+content="Simplifying Enterprise Apps,Java,AOP,No Fluff Just Stuff  Symposiums,Spring,AspectJ" 
+name=keywords>
+<META 
+content="This article reviews Spring AOP support in 2.0, and walks you through an adoption roadmap for AOP in enterprise applications, with plenty of examples of features that can be implemented simply using AOP, but would be very hard to do any other way.&#13;&#10;" 
+name=description>
+<META content="MSHTML 6.00.2800.1106" name=GENERATOR></HEAD>
+<BODY>
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/prototype.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/login.js" 
+type=text/javascript></SCRIPT>
+
+<SCRIPT type=text/javascript>
+var loginLanguage='en';
+var loginURL='/login.action';
+var registerURL='/reginit.action';
+var reactivateURL='/reactivate.action';
+var reserpasswordURL='/resetpassword.action';
+var loggedIn=false;
+var logoutURL='/logout.action';
+var editUserURL='/edituser.action';
+var aboutURL='/about.jsp';
+var homeURL='/';
+</SCRIPT>
+
+<DIV id=tooltip style="DISPLAY: none"></DIV>
+<DIV id=loginWindow style="DISPLAY: none"></DIV>
+<DIV id=tagPopup style="DISPLAY: none"></DIV>
+<DIV id=container>
+<H1 class=logo><A 
+href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">InfoQ</A></H1>
+<DIV id=header>
+<P class=skip><A 
+href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#content">Skip to 
+Content</A></P>
+<DIV id=quote>
+<P>Tracking change and innovation in the enterprise software development 
+community</P></DIV>
+<DIV 
+style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 2px; WIDTH: 29%; PADDING-TOP: 0px; POSITION: relative">
+<P 
+style="PADDING-RIGHT: 37px; PADDING-LEFT: 0px; FLOAT: right; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 6px">En 
+| <A href="http://www.infoq.com/cn/">中文</A> </P>
+<P 
+style="PADDING-RIGHT: 9px; PADDING-LEFT: 9px; PADDING-BOTTOM: 6px; MARGIN: 0px; PADDING-TOP: 6px; TEXT-ALIGN: left">110,267 
+Mar. unique visitors. </P></DIV></DIV>
+<DIV id=sidebar>
+<DIV id=sidebar-wrapper>
+<DIV class=s-logo>
+<P class=r-logo><A href="http://www.infoq.com/">InfoQ</A></P></DIV><A 
+href="http://www.infoq.com/articles/InfoQ-Changelog">Version 0.9</A> 
+<DIV class=box-simple>
+<DIV class=box-simple-top></DIV>
+<DIV class=box-simple-content id=mainLoginArea>
+<UL>
+  <LI><A href="http://www.infoq.com/reginit.action">Register</A> 
+  <LI><A 
+  onclick="javascript:showLoginWindow(this,ALIGN_LEFT,new Function('void(0);'));" 
+  href="javascript:void(0)">Login</A> 
+  <LI><A href="http://www.infoq.com/about.jsp">About us</A> 
+  <LI><A 
+  href="http://www.infoq.com/rss/rss.action?token=ScRTeiyA9HA7bVzFmmsyQCy56zgENBxS">Personal 
+  feed <IMG alt="RSS Feed" 
+  src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/btn-rss-blue.gif"></A> 
+
+  <LI><A href="http://www.infoq.com/">Home</A> </LI></UL></DIV>
+<DIV class=box-simple-bottom></DIV></DIV>
+<DIV class=box id=mainCommunitiesArea>
+<H2>Your Communities</H2>
+<DIV class=top-corners>
+<DIV></DIV></DIV>
+<DIV class=box-content>
+<DIV class=box-content-2>
+<SCRIPT language=JavaScript>
+	var communityChangeMessage = 'Your new preferences will be used starting with the next refresh.';
+</SCRIPT>
+
+<DIV id=communities>
+<UL>
+  <LI><INPUT id=community1 onclick=includeExcludeCommunity(this); type=checkbox 
+  CHECKED value=true name=java> <A href="http://www.infoq.com/java/">Java</A> 
+  <LI><INPUT id=community4 onclick=includeExcludeCommunity(this); type=checkbox 
+  CHECKED value=true name=dotnet> <A 
+  href="http://www.infoq.com/dotnet/">.NET</A> 
+  <LI><INPUT id=community5 onclick=includeExcludeCommunity(this); type=checkbox 
+  CHECKED value=true name=ruby> <A href="http://www.infoq.com/ruby/">Ruby</A> 
+  <LI><INPUT id=community2 onclick=includeExcludeCommunity(this); type=checkbox 
+  CHECKED value=true name=soa> <A href="http://www.infoq.com/soa/">SOA</A> 
+  <LI><INPUT id=community3 onclick=includeExcludeCommunity(this); type=checkbox 
+  CHECKED value=true name=agile> <A href="http://www.infoq.com/agile/">Agile</A> 
+  </LI></UL></DIV>
+<DIV id=communitiesMessage></DIV></DIV></DIV>
+<DIV class=bottom-corners>
+<DIV></DIV></DIV></DIV>
+<DIV class=box-simple>
+<DIV class=box-simple-top></DIV>
+<DIV class=box-simple-content id=featuredTopics>
+<H2>Featured Topics</H2>
+<DIV>
+<UL>
+  <LI><A href="http://www.infoq.com/j+n/">Java + .Net Integration</A> 
+  <LI>
+  <HR 
+  style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; WIDTH: 100%; COLOR: #c8c8c8; BORDER-BOTTOM: 0px; HEIGHT: 1px; BACKGROUND-COLOR: #c8c8c8">
+
+  <LI><A href="http://www.infoq.com/spring/">Spring Framework</A> 
+</LI></UL></DIV></DIV>
+<DIV class=box-simple-bottom></DIV></DIV>
+<DIV class=box-simple>
+<DIV class=box-simple-top></DIV>
+<DIV class="box-simple-content adsTower2" id=leftbartextlinks>
+<DIV style="BACKGROUND: white; WIDTH: 120px">
+<H3>Sponsored Links</H3>
+<P><A id=tl-29 onclick="Ads.clickTextLink(this, 29);" 
+href="http://msevents.microsoft.com/CUI/WebCastEventDetails.aspx?EventID=1032317739&amp;EventCategory=3&amp;culture=en-US&amp;CountryCode=US" 
+target=_blank>Hands&nbsp;on&nbsp;Lab</A><BR>Build&nbsp;WPF<BR>Interactive&nbsp;rich<BR>Client&nbsp;over&nbsp;a<BR>J2EE&nbsp;backend.</P>
+<P><A id=tl-26 onclick="Ads.clickTextLink(this, 26);" 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=109" 
+target=_blank>Manage&nbsp;.NET<BR>application<BR>performance&nbsp;and</A><BR>availability:<BR><A 
+id=tl-26 onclick="Ads.clickTextLink(this, 26);" 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=109" 
+target=_blank>Quest&nbsp;tech&nbsp;brief</A></P>
+<P>Live&nbsp;Mindreef<BR>Webinar<BR>Agile&nbsp;Testing<BR>Practices&nbsp;for&nbsp;Web<BR>Services&nbsp;and&nbsp;SOA.<BR><A 
+id=tl-28 onclick="Ads.clickTextLink(this, 28);" 
+href="http://www2.mindreef.com/webinar-registration.aspx?cid=3d6629a8-db71-4d6b-ba5e-5987bbff2b05" 
+target=_blank>Click&nbsp;to&nbsp;Register</A></P>
+<P><A id=tl-27 onclick="Ads.clickTextLink(this, 27);" 
+href="http://www.iona.com/info/aboutus/collateral/ArtixReg-RipDS.pdf" 
+target=_blank>Learn&nbsp;to&nbsp;Adopt<BR>SOA&nbsp;Incrementally</A><BR>IONA 
+Artix</P></DIV></DIV>
+<DIV class=box-simple-bottom></DIV></DIV>
+<DIV class=box-simple>
+<DIV class=box-simple-top></DIV>
+<DIV class=box-simple-content>
+<P class=banner id=bannerparagraph><A class=towerAdLeft id=sk-16 
+onclick="Ads.clickSkyscraper(this, 16 );" 
+href="http://ad.doubleclick.net/clk;96382442;16638780;u" target=_blank><IMG 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/120x600_25k_ee015.gif"></A> 
+</P></DIV>
+<DIV class=box-simple-bottom></DIV></DIV>
+<DIV class=box-simple>
+<DIV class=box-simple-top></DIV>
+<DIV class=box-simple-content>
+<P class=banner><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/logos.gif" 
+useMap=#sponsorsmap> <MAP name=sponsorsmap><AREA title=Compuware shape=RECT 
+  alt=Compuware coords=0,75,120,120 href="http://compuware.com/"><AREA 
+  title=Terracotta shape=RECT alt=Terracotta coords=0,140,120,180 
+  href="http://terracottatech.com/"><AREA title=Symantec shape=RECT alt=Symantec 
+  coords=0,205,120,250 href="http://www.symantec.com/index.htm"><AREA 
+  title=Cassatt shape=RECT alt=Cassatt coords=0,280,120,310 
+  href="http://www.cassatt.com/"><AREA title=IBM shape=RECT alt=IBM 
+  coords=0,340,120,390 href="http://www.ibm.com/developerworks"><AREA title=Bea 
+  shape=RECT alt=Bea coords=0,420,120,480 href="http://bea.com/"></MAP></P></DIV>
+<DIV class=box-simple-bottom></DIV></DIV>
+<DIV class=sidebar-bottom></DIV></DIV></DIV>
+<DIV id=clearer></DIV>
+<DIV id=content>
+<DIV id=content-wrapper>
+<DIV class=box>
+<DIV class="contribute contribute-print">
+<UL>
+  <LI class=c-news></LI>
+  <LI class=c-print><A href="javascript:print()">Print</A> </LI></UL></DIV>
+<H2>Article</H2>
+<DIV class=top-corners>
+<DIV></DIV></DIV>
+<DIV class=box-content>
+<DIV class=box-content-2>
+<DIV class=box-content-5>
+<P class=h1-r><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/image_aspectj.jpg"></P>
+<H1>Simplifying Enterprise Applications with Spring 2.0 and AspectJ</H1>
+<P class=info>Posted by <STRONG>Adrian Colyer</STRONG> on Aug 10, 2006 09:30 AM 
+</P>
+<DL class=tags2>
+  <DT class=community>Community 
+  <DD><A id=1 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/java/" name=java>Java</A> 
+  <DT class=topics>Topics 
+  <DD><A id=14 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/aop/" name=aop>AOP</A> </DD></DL>
+<H2>Spring: Simple <EM>and</EM> Powerful</H2>
+<P>Spring aims to make enterprise application development as simple and 
+productive as possible. Examples of this philosophy can be seen in Spring's 
+approach to JDBC, ORM, JMX, dependency injection, and many other important areas 
+of enterprise application development. Spring also distinguishes between making 
+something <EM>simple</EM>, and making it <EM>simplistic</EM>. The elusive 
+combination is to provide simplicity <EM>and</EM> power. One source of 
+complexity in enterprise applications arises from the implementation of features 
+and requirements that impact multiple parts of the application. Code relating to 
+these features ends up scattered across the application code, making it harder 
+to add, maintain, and understand. Spring 2.0 makes it much simpler to implement 
+such features in a modular manner, greatly simplifying the overall application 
+code and in some cases making it tractable to implement requirements that 
+otherwise would just be too painful to code.</P>
+<DIV class=vendor-content-box-float>
+<H3>Related<SPAN class=vendor>Vendor</SPAN>Content</H3>
+<P class=entrypdf><A 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=115">Agile Development: 
+Stats &amp; Experiences Explaining Why Agile Delivers Results </A></P>
+<P class=entrypdf><A 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=97">Implementing 
+Proactive Application Performance Mananagement Practices </A></P>
+<P class=entrydemo><A 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=74" target=_blank>SQL 
+Server Reporting Services in a Java Web-app </A></P>
+<P class=entrypdf><A 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=91">Application 
+Availability and Performance Management </A></P>
+<P class=entrypdf><A 
+href="http://www.infoq.com/vendorcontent/show.action?vcr=110" 
+target=_blank>Bruce Eckel: "Now I'm Thinking in Flex" - video &amp; Tomcat + 
+Flex download </A></P></DIV>
+<P>Transaction management is an example of a feature that impacts multiple parts 
+of an application: typically all of the operations in the service layer. The way 
+requirements such as this are addressed in Spring is through the use of AOP. 
+Spring 2.0 offers a significant simplification in its support for AOP, while at 
+the same time offering more expressive power than was available in Spring 1.x. 
+The improvements come in two main areas: configuration is greatly simplified 
+through the use of XML schema, and integration with AspectJ enables greater 
+expressive power and a much simpler advice model.</P>
+<P>In this article I will first describe where Spring AOP and AspectJ fit when 
+in a typical enterprise application, then I'll show you the new Spring AOP 
+support in 2.0. The bulk of the article is dedicated to walking through an 
+adoption roadmap for AOP in enterprise applications, with plenty of examples of 
+features that can be implemented simply using AOP, but would be very hard to do 
+any other way. </P>
+<H2>Simplifying Enterprise Applications</H2>
+<P>A typical enterprise application - say a web app - is structured in a number 
+of layers. A web layer with views and controllers, a service layer presenting 
+the business interface of the system, a data-access or <EM>repository</EM> layer 
+responsible for storing and retrieving persistent domain objects, and working 
+alongside all of these, a domain model in which the core business logic 
+resides.</P>
+<P>The web layer, service layer, and data-access layer share a number of 
+important characteristics: they should be as thin as possible, they should 
+contain no business logic, and they are typically wired together by Spring. In 
+these layers, Spring is responsible for object creation and configuration. The 
+domain model is somewhat different: domain objects are created by the programmer 
+using the new operator (or inflated by an ORM tool upon retrieval from the 
+database). There are many unique instances of domain objects, and they (can) 
+have rich behaviour. </P>
+<P>It's ok for the service layer to contain application use-case specific logic, 
+but all <EM>domain</EM> related logic should be in the domain model itself. </P>
+<P>The service layer is typically the place where declarative enterprise 
+services (such as transactions) are used. Declarative enterprise services such 
+as transactions and security are great examples of requirements that impact many 
+points in the application. In fact, even if you only wanted (say) transaction 
+demarcation in a single place, it is still desirable to separate this function 
+from your application logic to keep the code simpler and avoid unnecessary 
+coupling.</P>
+<P>Since service objects are Spring-managed beans, Spring AOP is a natural fit 
+to address requirements in this layer. In fact, anyone using Spring's 
+declarative transaction support is already using Spring AOP, whether they 
+realise this or not. Spring AOP is mature and widely used. It's a great fit for 
+Spring-managed beans in the web, service, and data-access layers so long as your 
+requirements can be addressed by advising bean method execution (and many use 
+cases for these layers fit into this category).</P>
+<P>When it comes to requirements that impact multiple points in your domain 
+model, the most important part of your application, Spring AOP is of much less 
+assistance. You <EM>could</EM> use Spring AOP programmatically, but this would 
+be very awkward and leave you with all the responsibility for proxy creation and 
+identity management yourself. AspectJ is a natural fit for implementing features 
+that impact domain objects. AspectJ aspects don't need any special proxy 
+creation, and can happily advise objects created at runtime either in your 
+application code or by frameworks you may be using. AspectJ is also a very good 
+solution when you want to modularise behaviour that cuts across all the 
+different layers of your application, or that is in any way performance 
+sensitive.</P>
+<P>What we'd ideally like therefore, is a consistent approach to Spring AOP and 
+AspectJ so that we can easily use the two together, and so that skills you 
+develop using (e.g.) Spring AOP can transfer across to AspectJ if your 
+requirements grow. Whatever combination we're using, we'd still like all of the 
+benefits of dependency injection and configuration that Spring offers. The new 
+AOP support in Spring 2.0 delivers exactly this.</P>
+<H2>The underlying technology: A brief introduction to AspectJ and Spring 
+AOP</H2>
+<P>AOP makes it much simpler to implement features that impact multiple points 
+in an application. The primary reason for this is that AOP provides support for 
+something known as <EM>advice</EM>. Unlike a method which has to be explicitly 
+invoked, advice executes automatically whenever a matching trigger event occurs. 
+Continuing on the transactions theme, the trigger event is the execution of a 
+method in the service layer, and the advice logic provides the needed 
+transaction demarcation. In AOP parlance, the trigger events are known as 
+<EM>join points</EM>, and a <EM>pointcut expression</EM> is used to select the 
+join points at which the advice runs. This simple inversion means that instead 
+of having to scatter calls to the transaction manager all throughout your 
+application code, you instead simply need to write a pointcut expression that 
+defines all the points where you need the transaction manager to do something, 
+and associate that with the appropriate advice. Both AspectJ and Spring AOP 
+provide support for this model, and in fact they share the exact same pointcut 
+expression language. </P>
+<P>In the discussion that follows, it's important to note that Spring and 
+AspectJ remain as separate projects. Spring simply uses the reflection and tools 
+APIs exposed by AspectJ 5 as a library. Spring 2.0 is still a runtime 
+proxy-based framework and the AspectJ weaver is not used for Spring aspects.</P>
+<P>As I'm sure most of you are aware, AspectJ is a language with a full compiler 
+(built as an extension of the Eclipse JDT Java compiler), and support for 
+weaving (linking aspects with) binary class files either offline or at runtime 
+as classes are loaded into the virtual machine. The most recent release of 
+AspectJ is AspectJ 5, which provides full support for the Java 5 language. </P>
+<P>AspectJ 5 also introduced a second style of aspect declaration, which we call 
+"@AspectJ", that allows you to write an aspect as a regular Java class with 
+annotations. Such an aspect can be compiled by a regular Java 5 compiler. For 
+example, the traditional "HelloWorld" aspect in the AspectJ programming language 
+looks like this: </P><PRE>public aspect HelloFromAspectJ {
+
+  pointcut mainMethod() : execution(* main(..));
+
+  after() returning : mainMethod() {
+    System.out.println("Hello from AspectJ!);
+  }
+
+}
+</PRE>
+<P>Compile this aspect alongside the traditional HelloWorld class and when you 
+run the application you'll see the output:</P><PRE>Hello World!
+Hello from AspectJ!
+</PRE>
+<P>We can write the same aspect in the @Aspect style as follows: </P><PRE>@Aspect
+public class HelloFromAspectJ {
+
+  @Pointcut("execution(* main(..))")
+  public void mainMethod() {}
+
+  @AfterReturning("mainMethod()")
+  public void sayHello() {
+    System.out.println("Hello from AspectJ!");
+  }
+
+}
+</PRE>
+<P>For the purposes of this article, the other important new features in AspectJ 
+5 are a full AspectJ-aware reflection API (you can ask an aspect at runtime for 
+its advice and pointcut members, and so on), and a tools API that lets 
+third-parties use AspectJ's pointcut parsing and matching engine. The first 
+significant user of these APIs, as you will see shortly, is Spring AOP.</P>
+<P>In contrast to AspectJ, Spring AOP is a proxy-based runtime framework. There 
+are no special tool or build requirements when using Spring AOP, thus Spring AOP 
+is a very easy way to get started. Being a proxy-based framework has both 
+advantages and disadvantages. In addition to the ease of use factors already 
+mentioned, a proxy-based framework is able to advise different instances of the 
+same type independently. Contrast this to the type-based semantics of AspectJ 
+where every instance of a type has the same behaviour. For a framework such as 
+Spring, being able to advise individual objects (Spring beans) independently is 
+an important requirement. On the downside, Spring AOP supports only a subset of 
+AspectJ's capabilities: it is possible to advise the execution of methods on 
+Spring beans, but nothing else.</P>
+<P>Proxy-based frameworks typically suffer from issues of identity :- there are 
+two objects (the proxy and the target) both representing the same entity in the 
+application. Care must be taken to pass the appropriate reference at all times, 
+and to ensure that proxies are created for any new target objects that are 
+instantiated. Spring AOP neatly solves these issues by managing bean 
+instantiation (so that proxies can be created transparently), and through 
+dependency injection (so that Spring can always inject the appropriate 
+reference).</P>
+<H3>New AOP support in Spring 2.0</H3>
+<P>Spring AOP in 2.0 is fully backwards compatible with Spring 1.x applications 
+and configuration. It also offers simpler and more powerful configuration than 
+Spring 1.x. The new AOP support is schema based so you'll need the relevant 
+namespace and schema location attributes in your Spring beans configuration 
+file. Here's how it looks: </P><PRE>&lt;beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation=
+	    "http://www.springframework.org/schema/beans
+	     http://www.springframework.org/schema/beans/spring-beans.xsd
+	     http://www.springframework.org/schema/aop
+	     http://www.springframework.org/schema/aop/spring-aop.xsd"&gt;
+
+ ...
+
+&lt;/beans&gt;
+</PRE>
+<P>Compared to the simpler xml configuration needed when using a DTD, then so 
+far we're not winning - but this is standard xml configuration and can be set up 
+in a template in your IDE and simply reused each time you need to create a 
+Spring configuration. You'll see the advantages as we start to add some content 
+to the configuration...</P>
+<P>Spring 2.0 uses the AspectJ pointcut language by default (restricted to 
+execution join point kinds). If it sees an AspectJ pointcut expression, it calls 
+out to AspectJ to parse it and match it. This means that any pointcut expression 
+you write with Spring AOP will work in exactly the same way with AspectJ. 
+Moreover, Spring can actually understand @AspectJ aspects, so it is possible to 
+share entire aspect definitions between Spring and AspectJ. Enabling this 
+capability is easy, just include the &lt;aop:aspectj-autoproxy&gt; element in 
+your configuration. If Aspectj-autoproxying is enabled in this way, then any 
+bean defined in your application context with a declared type that is an 
+@AspectJ aspect will be interpreted as an aspect by Spring AOP and beans in the 
+context will be advised accordingly. </P>
+<P>Here's the Hello World program as it looks when using Spring AOP in this way. 
+First, the content of the beans element in the application context file:</P><PRE>	&lt;bean id="helloService"
+	   class="org.aspectprogrammer.hello.spring.HelloService"/&gt;
+
+	&lt;aop:aspectj-autoproxy/&gt;
+
+	&lt;bean id="helloFromAspectJ"
+	   class="org.aspectprogrammer.hello.aspectj.HelloFromAspectJ"/&gt;
+
+</PRE>
+<P>HelloService is a simple Java class:</P><PRE>public class HelloService {
+
+  public void main() {
+    System.out.println("Hello World!");
+  }
+
+}
+</PRE>
+<P>HelloFromAspectJ is exactly the same annotated Java class (@AspectJ aspect) 
+that you saw earlier in this article. Here's a tiny main class that fires up the 
+Spring container, gets a reference to the helloService bean, and calls the 
+'main' method on it.</P><PRE>public class SpringBoot {
+
+  public static void main(String[] args) {
+    ApplicationContext context = new ClassPathXmlApplicationContext(
+      "org/aspectprogrammer/hello/spring/application-context.xml");
+    HelloService service = (HelloService) context.getBean("helloService");
+    service.main();
+  }
+
+}
+</PRE>
+<P>Running this program produces the output:</P><PRE>Hello World!
+Hello from AspectJ!
+</PRE>
+<P>Remember, this is still Spring AOP (we're not using the AspectJ compiler or 
+weaver at all), but it is AspectJ providing reflective information about the 
+@AspectJ aspect, and parsing and matching the pointcuts on behalf of Spring.</P>
+<P>Spring 2.0 also supports an xml form of aspect declaration backed by a simple 
+POJO (no need for any annotations). The xml form also uses the same subset of 
+the AspectJ pointcut language and supports the same five AspectJ advice types 
+(before, after returning, after throwing, after [finally], and around 
+advice).</P>
+<P>Here's how the hello world application looks using an XML based aspect 
+declaration:</P><PRE>   &lt;bean id="helloService"
+      class="org.aspectprogrammer.hello.spring.HelloService"/&gt;
+
+   &lt;aop:config&gt;
+     &lt;aop:aspect ref="helloFromSpringAOP"&gt;
+	&lt;aop:pointcut id="mainMethod" expression="execution(* main(..))"/&gt;
+	&lt;aop:after-returning pointcut-ref="mainMethod" method="sayHello"/&gt;
+     &lt;/aop:aspect&gt;
+   &lt;/aop:config&gt;
+
+   &lt;bean id="helloFromSpringAOP"
+         class="org.aspectprogrammer.hello.spring.HelloAspect"/&gt;
+</PRE>
+<P>The elements in the aop namespace can be used to declare aspects, pointcuts, 
+and advice with exactly the same semantics as their AspectJ and @AspectJ 
+counterparts. An "aspect" element refers to a Spring bean (fully configured and 
+instantiated by Spring), and each advice element specifies the method on that 
+bean that will be invoked to execute the advice. In this case the HelloAspect 
+class is simply:</P><PRE>public class HelloAspect {
+
+  public void sayHello() {
+    System.out.println("Hello from Spring AOP!");
+  }
+
+}
+</PRE>
+<P>Running the program will produce the familiar output:</P><PRE>Hello World!
+Hello from Spring AOP!
+</PRE>
+<P>This would be a good point to download Spring 2.0 and try some of this out 
+for yourself, if you haven't done so already.</P>
+<P>Rather than turn this article into a full tutorial on Spring AOP, I want to 
+press on look at some examples of features that can be usefully implemented this 
+way. I will just point out in passing that one of things Spring gets from using 
+the AspectJ pointcut language is the ability to write statically typed advice 
+(methods that declare the parameters they actually need) as opposed to always 
+working with untyped Object arrays - this makes advice methods much simpler to 
+write.</P>
+<H2>Adoption roadmap</H2>
+<P>Enough of the theory... let's look at some examples of how and why you might 
+actually use AOP in an enterprise application. Starting out with AOP does not 
+have to be an all-or-nothing big-bang approach. Adoption can proceed in phases, 
+each phase bringing increasing benefit in return for increased exposure to the 
+technology. </P>
+<P>The recommended adoption roadmap is to start out simply using the 
+out-of-the-box aspects (such as transaction management) that Spring supplies. 
+Many users of Spring will be doing this already, perhaps without appreciating 
+that AOP is being used "under the covers". Following on from this, you can 
+implement any custom crosscutting requirements you may have in the web, service, 
+and data-access layers using Spring AOP.</P>
+<P>Implementing features that impact the domain model necessitates the use of 
+AspectJ. You may be surprised to learn that there are a number of AspectJ 
+aspects that are useful to you at development time without affecting the 
+application that runs in production in any way. These aspects can add a lot of 
+value and have very little adoption risk, so they are the recommended way to get 
+started with AspectJ. Following on from this, you may choose to implement 
+'infrastructural' requirements with AspectJ - typical examples would be 
+profiling, tracing, error-handling and so on. As you grow more comfortable with 
+AspectJ and the accompanying tools, you may finally start to implement 
+functionality in the domain logic itself using aspects. </P>
+<P><EM>For additional information on the AOP adoption roadmap see chapter 11 of 
+the book "<A 
+href="http://www.awprofessional.com/bookstore/product.asp?isbn=0321245873&amp;rl=1">Eclipse 
+AspectJ</A>", or Ron Bodkin's "<A 
+href="http://www-128.ibm.com/developerworks/java/library/j-aopwork16/index.html">Next 
+steps with aspects</A>" article in the developerWorks AOP@Work series. Both of 
+these resources focus solely on AspectJ, whereas here I'm looking at using 
+Spring and AspectJ together.</EM></P>
+<P>Let's take a look at each of these adoption stages in turn.</P>
+<P>The very first thing it's useful to do when using AOP on a project is to 
+define a set of pointcut expressions that describe the different modules or 
+layers in your application. These pointcut expressions will be useful across all 
+of the different stages of adoption, and defining them once will reduce 
+duplication and improve code clarity. If we write these pointcuts using the 
+@AspectJ notation, they can be compiled by any regular Java 5 compiler. It is 
+also possible to write the same thing using the regular AspectJ language 
+keywords, compile the source file with ajc and add the resulting .class file to 
+the classpath. I'll use @AspectJ as that's the easier route of the two when 
+starting out with Spring AOP. Many readers will be familiar with the "jpetstore" 
+sample application that ships with Spring. I've refactored this application a 
+little and added some aspects to it (which we'll discuss later in this article). 
+Here is the beginning of the "SystemArchitecture" aspect that captures the main 
+layers and modules in the pet store: </P><PRE>@Aspect
+public class SystemArchitecture {
+
+	/**
+     *  we're in the pet store application if we're within any
+     *  of the pet store packages
+     */
+	@Pointcut("within(org.springframework.samples.jpetstore..*)")
+        public void inPetStore() {}
+
+	// modules
+	// ===========
+
+	@Pointcut("within(org.springframework.samples.jpetstore.dao..*)")
+        public void inDataAccessLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.domain.*)")
+        public void inDomainModel() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.service..*)")
+        public void inServiceLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.web..*)")
+        public void inWebLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.remote..*)")
+        public void inRemotingLayer() {}
+
+	@Pointcut("within(org.springframework.samples.jpetstore.validation..*)")
+        public void inValidationModule() {}
+
+	// module operations
+	// ==================
+
+	@Pointcut("execution(* org.springframework.samples.jpetstore.dao.*.*(..))")
+        public void doaOperation() {}
+
+	@Pointcut("execution(* org.springframework.samples.jpetstore.service.*.*(..))")
+        public void businessService() {}
+
+	@Pointcut("execution(public * org.springframework.samples.jpetstore.validation.*.*(..))")
+	public void validation() {}
+
+}
+</PRE>
+<P>Now that we've got a vocabulary for talking about the application 
+("inServiceLayer", "businessOperation", and so on), let's do something useful 
+with it.</P>
+<H3>Using out-of-the-box Spring aspects</H3>
+<P>An <EM>advisor</EM> is a Spring concept carried over from Spring 1.x that 
+embodies a very minimal aspect with a single piece of advice and associated 
+pointcut expression. For transaction demarcation, an advisor is all we need. A 
+typical transaction requirement is that all operations in the service layer need 
+to execute in a transaction (REQUIRED semantics) using the default isolation 
+level of the underlying resource manager(s). In addition, some operations may be 
+marked as "read-only" transactions - this knowledge can give significant 
+performance improvements for such transactions. The jpetstore advisor 
+declaration is as follows:</P><PRE>&lt;!--
+   all aspect and advisor declarations are gathered inside an
+   aop:config element
+--&gt;
+&lt;aop:config&gt;
+
+  &lt;aop:advisor
+    pointcut="org.springframework.samples.jpetstore.SystemArchitecture.businessService()"
+    advice-ref="txAdvice"/&gt;
+
+&lt;/aop:config&gt;
+</PRE>
+<P>This declaration simply says that when executing a "businessService" we need 
+to run the advice referenced by "txAdvice". The "businessService" pointcut is 
+defined in the org.springframework.samples.jpetstore.SystemArchitecture aspect 
+that we looked at previously. It matches the execution of any operation defined 
+in a service interface.</P>
+<P>Because transaction advice itself can require considerable configuration, 
+Spring provides the tx:advice element in the tx namespace to make this much 
+simpler and clearer. This is what the definition of the "txAdvice" bean looks 
+like for the jpetstore application: </P><PRE>&lt;!--
+  Transaction advice definition, based on method name patterns.
+  Defaults to PROPAGATION_REQUIRED for all methods whose name starts with
+  "insert" or "update", and to PROPAGATION_REQUIRED with read-only hint
+  for all other methods.
+--&gt;
+&lt;tx:advice id="txAdvice"&gt;
+  &lt;tx:attributes&gt;
+    &lt;tx:method name="insert*"/&gt;
+    &lt;tx:method name="update*"/&gt;
+    &lt;tx:method name="*" read-only="true"/&gt;
+  &lt;/tx:attributes&gt;
+&lt;/tx:advice&gt;
+</PRE>
+<P>There's an even simpler way to configure transactions that uses annotations. 
+When using the @Transactional annotation, the only XML you need is: </P><PRE>&lt;!--
+   Tell Spring to apply transaction advice based on the presence of
+   the @Transactional annotation on Spring bean types.
+--&gt;
+&lt;tx:annotation-driven/&gt;
+</PRE>
+<P>When using the annotation approach, the PetService implementation would be 
+annotated as follows:</P><PRE>/*
+ * all operations have TX_REQUIRED, default isolation level,
+ * read-write transaction semantics by default
+ */
+@Transactional
+public class PetStoreImpl implements PetStoreFacade, OrderService {
+
+  ...
+
+  /**
+   * override defaults on a per-method basis
+   */
+  @Transactional(readOnly=true)
+  public Account getAccount(String username) {
+    return this.accountDao.getAccount(username);
+  }
+
+  ...
+
+}
+
+</PRE>
+<H3>Simplifying the web, service, and data-access layers</H3>
+<P>Spring AOP can be used to simplify the web, service, and data-access layers. 
+In this section, we'll look at a couple of examples: one drawn from the data 
+access layer, and one from the service layer.</P>
+<P>Suppose you've implemented your data access layer using Hibernate 3, without 
+using the Spring HibernateTemplate support classes. You now plan to start using 
+Spring in the application, and would like to take advantage of Spring's 
+fine-grained DataAccessException hierarchy in the service layer. Spring's 
+HibernateTemplate will convert HibernateExceptions to DataAccessExceptions for 
+you automatically, but since at this stage you have an existing data layer 
+implementation you are quite happy with, you don't want to rewrite it based 
+around the Spring support classes right now. That means you need to implement 
+the exception translation yourself. The requirement is simple to state: </P>
+<BLOCKQUOTE>After any HibernateException is thrown from the data access layer, 
+  convert it to a DataAccessException before passing it on to the caller. 
+</BLOCKQUOTE>
+<P>Using AOP, the implementation is almost as simple as that requirements 
+statement. Implementing this requirement <EM>without</EM> AOP would be a major 
+headache. This is what the HibernateExceptionTranslator aspect for "myapp" looks 
+like: </P><PRE>@Aspect
+public class HibernateExceptionTranslator {
+
+  private HibernateTemplate hibernateTemplate;
+
+  public void setHibernateTemplate(HibernateTemplate aTemplate) {
+    this.hibernateTemplate = aTemplate;
+  }
+
+  @AfterThrowing(
+    throwing="hibernateEx",
+    pointcut="org.aspectprogrammer.myapp.SystemArchitecture.dataAccessOperation()"
+  )
+  public void rethrowAsDataAccessException(HibernateException hibernateEx) {
+    throw this.hibernateTemplate
+	      .convertHibernateAccessException(hibernateEx);
+
+  }
+
+}
+</PRE>
+<P>The aspect needs a HibernateTemplate in order to perform the translation - 
+we'll configure it using dependency injection just like any other Spring bean. 
+The advice declaration should hopefully be very easy to understand as a direct 
+translation of the requirements statement: "@AfterThrowing a HibernateException 
+(hibernateEx) from a dataAccessOperation(), rethrowAsDataAccessException". 
+Simple <EM>and</EM> powerful!</P>
+<P>We could build the application with ajc (the AspectJ compiler) now, and we'd 
+be done. But there's no need to use ajc here, because Spring AOP can also 
+understand @AspectJ aspects...</P>
+<P>In the application context file, we have two pieces of configuration needed. 
+First we need to tell Spring that any bean with a type that is an @AspectJ 
+aspect should be used to configure Spring AOP proxying. This is a one-off 
+configuration achieved by declaring the following element anywhere in the 
+application context configuration file: </P><PRE>&lt;aop:aspectj-autoproxy&gt;
+</PRE>
+<P>Then we need to declare the exception translation bean and configure it, just 
+like we would for any regular Spring bean (there is nothing AOP specific 
+here):</P><PRE>&lt;bean id="hibernateExceptionTranslator"
+   class="org.aspectprogrammer.myapp.dao.hibernate.HibernateExceptionTranslator"&gt;
+  &lt;property name="hibernateTemplate"&gt;
+    &lt;bean class="org.springframework.orm.hibernate3.HibernateTemplate"&gt;
+      &lt;constructor-arg index="0" ref="sessionFactory" /&gt;
+    &lt;/bean&gt;
+  &lt;/property&gt;
+&lt;/bean&gt;
+</PRE>
+<P>The mere fact that the class of the bean (HibernateExcepionTranslator) is an 
+@AspectJ aspect is enough to configure Spring AOP.</P>
+<P>For completeness, let's also look at how you could do this using the xml form 
+of aspect declaration (for working under JDK 1.4 for example). The bean 
+definition for the hibernateExceptionTranslator would be unchanged from that 
+shown above. The class itself would no longer be annotated, but the rest of it 
+is exactly the same too:</P><PRE>public class HibernateExceptionTranslator {
+
+  private HibernateTemplate hibernateTemplate;
+
+  public void setHibernateTemplate(HibernateTemplate aTemplate) {
+    this.hibernateTemplate = aTemplate;
+  }
+
+  public void rethrowAsDataAccessException(HibernateException hibernateEx) {
+    throw this.hibernateTemplate
+	      .convertHibernateAccessException(hibernateEx);
+
+  }
+
+}
+</PRE>
+<P>Since this is no longer an @AspectJ aspect, we can't use the 
+aspectj-autoproxy element. Instead we define the aspect in XML:</P><PRE>&lt;aop:config&gt;
+
+  &lt;aop:aspect ref="hibernateExceptionTranslator"&gt;
+     &lt;aop:after-throwing
+         throwing="hibernateEx"
+         pointcut="org.aspectprogrammer.myapp.SystemArchitecture.dataAccessOperation()"
+         method="rethrowAsDataAccessException"/&gt;
+  &lt;/aop:aspect&gt;
+
+&lt;/aop:config&gt;
+</PRE>
+<P>This reads just like the previous version: after-throwing a hibernateEx from 
+a dataAccessOperation, rethrowAsDataAccessException. Notice the "ref" attribute 
+of the aop:aspect element which refers to the hibernateExceptionTranslator bean 
+we defined earlier. This is the bean instance on which the 
+rethrowAsDataAccessException method will be invoked, and hibernateEx is the name 
+of a parameter (the only parameter in this case) declared on that method.</P>
+<P>So that's it. We've implemented the requirement (twice!). Using the @AspectJ 
+style, we have 15 non-blank lines of code, and 1 line of XML. This is enough to 
+give us consistent and correct behavior across the whole of the data access 
+layer, however big it may be.</P>
+<P>One nice advantage of this particular aspect is that if you later want to 
+migrate the data layer to a JPA (EJB 3 persistence) based implementation using 
+Hibernate or any other JPA implementation, your service layer will be unaffected 
+and can carry on working with DataAccessExceptions (Spring will provide 
+templates and exception translation for JPA, just as it does for other ORM 
+implementations).</P>
+<P>Now that we can work with fine-grained DataAccessExceptions in the service 
+layer, we can do something useful with that. In particular, we could catch 
+ConcurrencyFailureExceptions and transparently retry if an idempotent operation 
+fails with, for example, a deadlock loser exception. Let's implement the 
+crosscutting requirement that any idempotent service operation that fails due to 
+a concurrency failure will be transparently retried a configurable number of 
+times, before passing the failure onto the client.</P>
+<P>Here's an aspect that does the job:</P><PRE>@Aspect
+public class ConcurrentOperationExecutor implements Ordered {
+
+  private static final int DEFAULT_MAX_RETRIES = 2;
+  private int maxRetries = DEFAULT_MAX_RETRIES;
+  private int order = 1;
+  private boolean retryOnOptimisticLockFailure = false;
+
+  /**
+   * configurable number of retries
+   */
+  public void setMaxRetries(int maxRetries) {
+    this.maxRetries = maxRetries;
+  }
+
+  /**
+   * Whether or not optimistic lock failures should also be retried.
+   * Default is not to retry transactions that fail due to optimistic
+   * locking in case we overwrite another user's work.
+   */
+  public void setRetryOnOptimisticLockFailure(boolean retry) {
+     this.retryOnOptimisticLockFailure = retry;
+  }
+
+  /**
+   *  implementing the Ordered interface enables us to specify when
+   *  this aspect should run with respect to other aspects such as
+   *  transaction management. We give it the highest precedence
+   *  (1) which means that the retry logic will wrap the transaction
+   *  logic - we need a fresh transaction each time.
+   */
+  public int getOrder() {
+    return this.order;
+  }
+
+  public void setOrder(int order) {
+    this.order = order;
+  }
+
+  /**
+   * For now, just assume that all business services are idempotent
+   */
+  @Pointcut("org.aspectprogrammer.myapp.SystemArchitecture.businessService()")
+  public void idempotentOperation() {}
+
+  @Around("idempotentOperation()")
+  public Object doConcurrentOperation(ProceedingJoinPoint pjp)
+  throws Throwable {
+    int numAttempts = 0;
+    ConcurrencyFailureException failureException;
+    do {
+      try {
+	    return pjp.proceed();
+      }
+      catch(OptimisticLockingFailureException ex) {
+        if (!this.retryOnOptimisticLockFailure) {
+          throw ex;
+        }
+        else {
+	     failureException = ex;
+	    }
+      }
+      catch(ConcurrencyFailureException ex) {
+         failureException = ex;
+      }
+    }
+    while(numAttempts++ &lt; this.maxRetries);
+      throw lockFailureException;
+    }
+
+}
+</PRE>
+<P>Once more, this aspect could be used by either Spring AOP or AspectJ, 
+unchanged. The around advice (doConcurrentOperation) takes a special parameter 
+of type ProceedingJoinPoint. When proceed is called on this object, whatever the 
+advice is "around" (in this case the service operation) will execute.</P>
+<P>If you strip out all of the comments and the boilerplate getters-and-setters 
+the business end of this aspect is still only 32 lines of code. Since we already 
+had the aspectj-autoproxy element in the configuration file, all we need to add 
+is a simple bean definition:</P><PRE>&lt;bean id="concurrentOperationExecutor"
+     class="org.aspectprogrammer.myapp.service.impl.ConcurrentOperationExecutor"&gt;
+  &lt;property name="maxRetries" value="3"/&gt;
+  &lt;property name="order" value="1"/&gt;
+&lt;/bean&gt;
+</PRE>
+<P>What if not all of the operations in the service layer are idempotent? How 
+can we identify the idempotent ones? This is where the power of a pointcut 
+language comes into play. We already have an abstraction that represents the 
+concept of an idempotent operation:</P><PRE>  @Pointcut("org.aspectprogrammer.myapp.SystemArchitecture.businessService()")
+  public void idempotentOperation() {}
+</PRE>
+<P>If we want to change what constitutes what represents an idempotent 
+operation, all we have to do is change the pointcut. For example, we might 
+define a marker annotation for idempotent operations, @Idempotent. We could 
+change the pointcut expression to only match business services with the 
+Idempotent annotation very simply:</P><PRE>  @Pointcut(
+    "org.aspectprogrammer.myapp.SystemArchitecture.businessService() &amp;&amp;
+     @annotation(org.aspectprogrammer.myapp.Idempotent)")
+  public void idempotentOperation() {}
+</PRE>
+<P>Now that's a bit simpler than using APT! The pointcut simply says: "an 
+idempotentOperation is businessService that has the Idempotent annotation.</P>
+<P>Hopefully most of your service operations <EM>are</EM> idempotent. In that 
+case, it might be easier to annotate the ones that are <EM>not</EM> idempotent 
+than pick out the ones that are. Something like @IrreversibleSideEffects should 
+do the trick. This works both technically and psychologically (who wants to 
+annotate their code with "IrreversibleSideEffects"! I'd rather rewrite it to 
+avoid them ;) ). Since the definition of idempotentOperation is captured in just 
+one place, it's easy to change:</P><PRE>  @Pointcut(
+    "org.aspectprogrammer.myapp.SystemArchitecture.businessService() &amp;&amp;
+     !@annotation(org.aspectprogrammer.myapp.IrreversibleSideEffects)")
+  public void idempotentOperation() {}
+</PRE>
+<P>An idempotentOperation is a businessService that does not have the 
+IrreversibleSideEffects annotation.</P>
+<H3>Improving productivity with development time aspects</H3>
+<P>Once you are comfortable writing @AspectJ aspects for Spring AOP, you can get 
+a lot of extra benefit from AspectJ even if you only use it during development 
+(and have no AspectJ compiled aspects in your running application). Aspects can 
+be used to aid in testing (they make some kinds of mocking and fault injection 
+easier), in debugging and diagnosing problems, and in ensuring that the design 
+guidelines set out for your application are enforced. </P>
+<P>First off, let's look at an example of a design enforcement aspect. 
+Continuing the theme of working in the data access layer, we'd now like to 
+introduce the Spring HibernateTemplate and let Spring manage Hibernate sessions 
+for us instead of doing this ourselves. The following aspect will ensure that 
+programmers don't inadvertantly start managing their own sessions:</P><PRE>public aspect SpringHibernateUsageGuidelines {
+
+  pointcut sessionCreation()
+    : call(* SessionFactory.openSession(..));
+
+  pointcut sessionOrFactoryClose()
+    : call(* SessionFactory.close(..)) ||
+      call(* Session.close(..));
+
+  declare error
+   : sessionCreation() || sessionOrFactoryClose()
+   : "Spring manages Hibernate sessions for you, " +
+     "do not try to do it programmatically";
+}
+</PRE>
+<P>With this aspect in place, if a programmer is using the AspectJ Development 
+Tools (<A href="http://www.eclipse.org/ajdt">AJDT</A>) plugin for Eclipse, he or 
+she will get a compilation error marker in the problems view and at the 
+offending location in the source code (exactly the same as any regular 
+compilation error) with the error text "Spring manages Hibernate sessions for 
+you, do not try to do it programmatically". A recommended way to introduce 
+enforcement aspects such as this is to add an AspectJ compilation step to the 
+build process that "weaves" your application with the enforcement aspects - this 
+task will fail if there are build errors found by the aspects.</P>
+<P>Now let's look at a simple diagnosis aspect. Recall that we marked some 
+transactions as read-only (an important performance optimisation). As 
+applications grow in complexity, it can be a long way (conceptually) from the 
+service layer operation where transaction demarcation takes place, to the 
+business domain logic that executes as part of a given use case. If the domain 
+logic updates the state of a domain object during a read-only transaction, we 
+run the risk of that update being lost (never committed to the database). This 
+can be a source of subtle bugs.</P>
+<P>The LostUpdateDetector aspect can be used at development time as an aid to 
+detecting potential lost updates. </P><PRE>public aspect LostUpdateDetector {
+
+  private Log log = LogFactory.getLog(LostUpdateDetector.class);
+
+  pointcut readOnlyTransaction(Transactional txAnn) :
+    SystemArchitecture.businessService() &amp;&amp;
+    @annotation(txAnn) &amp;&amp; if(txAnn.readOnly());
+
+  pointcut domainObjectStateChange() :
+     set(!transient * *) &amp;&amp;
+     SystemArchitecture.inDomainModel();
+
+  ..
+</PRE>
+<P>I've started out by defining a couple of useful pointcuts in the aspect. A 
+readOnlyTransaction is the execution of a businessService() that has an 
+@Transactional annotation with the readOnly() property set to true. A 
+domainObjectStateChange is the update of any non-transient field 
+inDomainModel(). (Note, this is a simplified, but still useful, perspective on 
+what constitutes a domain object state change - we could expand the aspect to 
+deal with collections etc. if we so desired). With these two concepts defined, 
+we can now say what we mean by a potentialLostUpdate():</P><PRE>  pointcut potentialLostUpdate() :
+    domainObjectStateChange() &amp;&amp;
+    cflow(readOnlyTransaction(Transactional));
+</PRE>
+<P>A potentialLostUpdate is a domainObjectState change made in the control flow 
+of (during) a readOnlyTransaction. Here you can see the power of the pointcut 
+language at work. We've been able to express a powerful concept very simply by 
+composing two named pointcut expressions. Using a pointcut language it is much 
+simpler to express conditions such as a potentialLostUpdate than it would be if 
+you only had a raw interception model available to you. It's also a lot more 
+powerful than simplistic interception mechanisms such as those offered by EJB 
+3.</P>
+<P>Finally of course we need to actually do something when a potentialLostUpdate 
+occurs: </P><PRE>  after() returning : potentialLostUpdate() {
+    logLostUpdate(thisJoinPoint);
+  }
+
+  private void logLostUpdate(JoinPoint jp) {
+    String fieldName = jp.getSignature().getName();
+    String domainType = jp.getSignature().getDeclaringTypeName();
+    String newValue = jp.getArgs()[0].toString();
+    Throwable t = new Throwable("potential lost update");
+    t.fillInStackTrace();
+    log.warn("Field [" +  fieldName + "] in type [" + domainType + "] " +
+	     "was updated to value [" + newValue + "] in a read-only " +
+	     "transaction, update will be lost.",t);
+  }
+
+}
+</PRE>
+<P>Here's the log entry resulting from running a test case with this aspect in 
+place:</P><PRE>WARN - LostUpdateDetector.logLostUpdate(41) | Field [name] in type
+[org.aspectprogrammer.myapp.domain.Pet] was updated to value [Mr.D.]
+in a read-only transaction, update will be lost.
+java.lang.Throwable: potential lost update
+	at org.aspectprogrammer.myapp.debug.LostUpdateDetector.logLostUpdate(LostUpdateDetector.aj:40)
+	at org.aspectprogrammer.myapp.debug.LostUpdateDetector.afterReturning(LostUpdateDetector.aj:32)
+	at org.aspectprogrammer.myapp.domain.Pet.setName(Pet.java:32)
+	at org.aspectprogrammer.myapp.service.impl.PetServiceImpl.updateName(PetServiceImpl.java:40)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:100)
+	at org.aspectprogrammer.myapp.service.impl.ConcurrentOperationExecutor.doConcurrentOperation(ConcurrentOperationExecutor.java:37)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:478)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:344)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:196)
+</PRE>
+<P>Note as an aside the clean and readable stack trace (and the optimistic retry 
+logic in place). The readable stack trace is due to another aspect that removes 
+noise from exception stack trace entries. Without the stack trace management 
+aspect in place, all of the Spring AOP interception stack frames are also 
+displayed, giving a stack trace like that shown below. I think you'll agree that 
+the simplified version is a big improvement!</P><PRE>WARN - LostUpdateDetector.logLostUpdate(41) | Field [name] in type
+[org.aspectprogrammer.myapp.domain.Pet] was updated to value [Mr.D.]
+in a read-only transaction, update will be lost.
+java.lang.Throwable: potential lost update
+	at org.aspectprogrammer.myapp.debug.LostUpdateDetector.logLostUpdate(LostUpdateDetector.aj:40)
+	at org.aspectprogrammer.myapp.debug.LostUpdateDetector.ajc$afterReturning$org_aspectprogrammer_myapp_debug_LostUpdateDetector$1$b5d4ce0c(LostUpdateDetector.aj:32)
+	at org.aspectprogrammer.myapp.domain.Pet.setName(Pet.java:32)
+	at org.aspectprogrammer.myapp.service.impl.PetServiceImpl.updateName(PetServiceImpl.java:40)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:287)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:181)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:148)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:100)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:170)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:71)
+	at org.aspectprogrammer.myapp.service.impl.ConcurrentOperationExecutor.doConcurrentOperation(ConcurrentOperationExecutor.java:37)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:568)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:558)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:57)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:170)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:95)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:170)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:176)
+	at $Proxy8.updateName(Unknown Source)
+	at org.aspectprogrammer.myapp.debug.LostUpdateDetectorTests.testLostUpdateInReadOnly(LostUpdateDetectorTests.java:23)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at junit.framework.TestCase.runTest(TestCase.java:154)
+	at junit.framework.TestCase.runBare(TestCase.java:127)
+	at junit.framework.TestResult$1.protect(TestResult.java:106)
+	at junit.framework.TestResult.runProtected(TestResult.java:124)
+	at junit.framework.TestResult.run(TestResult.java:109)
+	at junit.framework.TestCase.run(TestCase.java:118)
+	at junit.framework.TestSuite.runTest(TestSuite.java:208)
+	at junit.framework.TestSuite.run(TestSuite.java:203)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:478)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:344)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:196)
+
+</PRE>
+<H3>Simplifying the implementation of 'infrastructural' requirements</H3>
+<P>As you start to get more comfortable with AspectJ and the accompanying tool 
+set, you can use AspectJ to implement requirements that impact all parts of your 
+application, including the domain model. As a simple example, I'll show you how 
+to profile the jpetstore sample application. Let's look at the Profiler aspect 
+first, and then fill in some of the surrounding details:</P><PRE>public aspect Profiler {
+
+  private ProfilingStrategy profiler = new NoProfilingStrategy();
+
+  public void setProfilingStrategy(ProfilingStrategy p) {
+    this.profiler = p;
+  }
+
+  pointcut profiledOperation() :
+    Pointcuts.anyPublicOperation() &amp;&amp;
+    SystemArchitecture.inPetStore() &amp;&amp;
+    !within(ProfilingStrategy+);
+
+  Object around() : profiledOperation() {
+    Object token = this.profiler.start(thisJoinPointStaticPart);
+    Object ret = proceed();
+    this.profiler.stop(token,thisJoinPointStaticPart);
+    return ret;
+  }
+}
+</PRE>
+<P>We've defined a profiledOperation() as anyPublicOperation() 
+in[the]PetStore(). The aspect is acting as a controller delegating to a 
+ProfilingStrategy, which we'll configure with Spring using dependency injection. 
+</P><PRE>  &lt;bean id="profiler"
+     class="org.springframework.samples.jpetstore.profiling.Profiler"
+     factory-method="aspectOf"&gt;
+    &lt;property name="profilingStrategy"&gt;
+      &lt;ref local="jamonProfilingStrategy"/&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="jamonProfilingStrategy"
+     class="org.springframework.samples.jpetstore.profiling.JamonProfilingStrategy"
+     init-method="reset"
+     destroy-method="report"&gt;
+  &lt;/bean&gt;
+</PRE>
+<P>Note the use of the "factory-method" attribute for the aspect bean, this is 
+the only difference between configuring a singleton AspectJ aspect and 
+configuring a regular Spring bean. I'm using <A 
+href="http://jamonapi.sourceforge.net/">JAMon</A> for profiling which provides a 
+very simple API.</P><PRE>public class JamonProfilingStrategy implements ProfilingStrategy {
+
+  public Object start(StaticPart jpStaticPart) {
+    return MonitorFactory.start(jpStaticPart.toShortString());
+  }
+
+  public void stop(Object token, StaticPart jpStaticPart) {
+    if (token instanceof Monitor) {
+      Monitor mon = (Monitor) token;
+      mon.stop();
+    }
+  }
+}
+</PRE>
+<P>That's all we have to do to enable profiling across the entire pet store. By 
+adding the JAMon supplied jsp to the pet store application, we can view the 
+profiling output in a web browser. Here's a screenshot after I've clicked around 
+the application for a while:</P>
+<P class=image-wide><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/petstore-jamon.jpg" 
+_href="img://petstore-jamon.jpg"></P>
+<H3>Simplifying the domain model</H3>
+<P>It's not uncommon to have business logic requirements that impact multiple 
+parts of your domain model too. Some obvious examples would be design pattern 
+implementations (see Nick Leseicki's excellent developerWorks articles on this 
+topic: <A 
+href="http://www.ibm.com/developerworks/java/library/j-aopwork5/index.html">part 
+1</A>, <A 
+href="http://www.ibm.com/developerworks/java/library/j-aopwork6/index.html">part 
+2</A>), dependency injection of domain objects (using for example Spring's 
+@Configurable annotation), and the implementation of business rules and 
+policies. At this stage of adoption, your core business logic becomes dependent 
+on the presence of aspects. Aspects you write will be particular to your domain. 
+Both AspectJ and AJDT are built using AspectJ, and we use a number of 
+domain-specific aspects in their construction. As an example, here's an aspect 
+that I added to AspectJ during the development of the 1.5.1 release: it 
+implements an often-requested feature to issue a lint warning if an exception is 
+swallowed in an empty catch block. </P><PRE>public aspect WarnOnSwallowedException {
+
+  pointcut resolvingATryStatement(TryStatement tryStatement, BlockScope inScope)
+    : execution(* TryStatement.resolve(..)) &amp;&amp;
+      this(tryStatement) &amp;&amp;
+      args(inScope,..);
+
+    after(TryStatement tryStatement, BlockScope inScope) returning
+      : resolvingATryStatement(tryStatement,inScope) {
+      if (tryStatement.catchBlocks != null) {
+        for (int i = 0; i &lt; tryStatement.catchBlocks.length; i++) {
+	  Block catchBlock = tryStatement.catchBlocks[i];
+	  if (catchBlock.isEmptyBlock() ||
+              catchBlock.statements.length == 0) {
+	    warnOnEmptyCatchBlock(catchBlock,inScope);
+	  }
+        }
+      }
+    }
+
+    private void warnOnEmptyCatchBlock(Block catchBlock, BlockScope inScope) {
+      inScope.problemReporter()
+             .swallowedException(catchBlock.sourceStart(),
+                                 catchBlock.sourceEnd());
+    }
+}
+</PRE>
+<P>Even though this aspect only advises a single place in the codebase in this 
+example, it makes the code clearer by modularising this AspectJ addition to the 
+JDT compiler's functionality and making it very obvious for future maintainers 
+how this feature is implemented.</P>
+<P>A more detailed treatment of domain modelling with aspects is the subject of 
+another article.</P>
+<H2>Summary</H2>
+<P>Spring aims to provide a simple and powerful approach to the development of 
+enterprise applications. With it's support for AOP and integration with AspectJ, 
+this approach extends to the implementation of features that impact multiple 
+parts of an application. Traditionally the implementation of such features is 
+scattered throughout the application logic, making it hard to add, remove and 
+maintain the feature, and complicating application logic. Using aspects Spring 
+enables you to write clean, simple, modular implements of such features. </P>
+<P>Adoption of AOP can proceed in a number of phases: start out by taking 
+advantage of aspects that Spring supplies out-of-the-box, and then you can add 
+your own @AspectJ aspects using Spring AOP in the web, service, and data-access 
+layers. AspectJ itself can be used to improve development productivity without 
+introducing any runtime dependency on AspectJ. Going further, infrastructural 
+requirements that cut across multiple layers of your application can be simply 
+implemented using AspectJ aspects. Finally, you can use aspects to simplify the 
+implementation of your domain model itself.</P>
+<H2>About the author</H2>
+<P>Adrian Colyer is Chief Scientist at Interface21, leader of the AspectJ 
+project on Eclipse.org, and founder of the AspectJ Development Tools (AJDT) 
+project. In 2004 he was voted one of the top 100 young innovators in the world 
+by MIT Technology Review, and is a frequent speaker on the topics of Spring, 
+AOP, and AspectJ.</P>
+<H2>About Interface21</H2>
+<P>Interface21 provide training and consultancy in Spring, AOP, and AspectJ. For 
+course schedules or to arrange an in-house training see <A 
+href="http://www.interface21.com/">http://www.interface21.com/</A>. </P>
+<P>See Adrian Colyer and the rest of the Spring community at <A 
+href="http://www.thespringexperience.com/">http://www.thespringexperience.com/</A> 
+conference, Dec 7-10, 2006.</P>
+<DIV style="MARGIN-TOP: 15px; DISPLAY: block">
+<DIV class=bloglinks>Bookmark <A id=blogLinkDigg 
+href="http://digg.com/submit?phase=2&amp;url=http://www.infoq.com/articles/Simplifying-Enterprise-Apps" 
+target=_blank>Digg+</A> <SPAN style="COLOR: black">,</SPAN> <A id=blogLinkReddit 
+href="http://reddit.com/submit?url=http://www.infoq.com/articles/Simplifying-Enterprise-Apps&amp;title=Simplifying Enterprise Applications with Spring 2.0 and AspectJ" 
+target=_blank>Reddit+</A> <SPAN style="COLOR: black">,</SPAN> <A 
+id=blogLinkDelicious 
+href="http://del.icio.us/post?url=http://www.infoq.com/articles/Simplifying-Enterprise-Apps&amp;title=Simplifying Enterprise Applications with Spring 2.0 and AspectJ" 
+target=_blank>del.icio.us+</A> </DIV>
+<DIV style="DISPLAY: inline; MARGIN-RIGHT: 0px">
+<DL class=tags3>
+  <DT>Tags 
+  <DD><A id=437 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/nfjs/" name=nfjs>No Fluff Just Stuff 
+  Symposiums</A>, 
+  <DD><A id=17 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/spring/" name=spring>Spring</A>, 
+  <DD><A id=114 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/AspectJ/" name=AspectJ>AspectJ</A> 
+</DD></DL></DIV></DIV>
+<SCRIPT type=text/javascript>
+var replyEnabled=true;
+var forumID=1;
+var threadID=591;
+var previewText='Preview';
+var pleaseWait='Please Wait ...';	
+var reply='Reply';
+var postMessage='Post Message';	
+var errorSubject='Please enter a subject.';	
+var errorBody='You can not post a blank message. Please type your message and try again.';
+var cancel='Cancel';
+var goBackOrEdit='Go Back/Edit';
+var re='Re:';
+var lastMessage=0;
+var stopWatchText='Stop Watching Thread';
+var startWatchText='Watch Thread';
+var descending='false';
+var ctxPath= '';
+var postAddress= ctxPath + '/forum/post!post.action';
+var postAddWatches= ctxPath + '/forum/watches!add.action';
+var postRemoveWatches= ctxPath + '/forum/watches!remove.action';
+var loggedIn=false;	
+</SCRIPT>
+
+<SCRIPT 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/forum.js" 
+type=text/javascript></SCRIPT>
+
+<DIV class=comments-header>
+<H3><SPAN id=comments-number>10</SPAN> comments</H3>
+<P><A class=comment-reply 
+onclick="javascript:loggedIn?replyFromTooltip(1891,true):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromTooltip(1891,true)'));" 
+href="javascript:void(0)">Reply</A> </P></DIV><SPAN id=newMessage 
+style="DISPLAY: none"></SPAN><SPAN id=replyTree_1891></SPAN><SPAN 
+id=replyMessage_1891></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 0px; MARGIN-RIGHT: 0px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1922 style="CURSOR: hand">Excellent article 
+</SPAN></A>by Jonas Bonér Posted Aug 9, 2006 11:05 AM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1922', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1922', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1922></SPAN><SPAN id=replyMessage_1922></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 0px; MARGIN-RIGHT: 0px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1924 style="CURSOR: hand">infoq.com/spring 
+</SPAN></A>by Geoffrey Wiseman Posted Aug 9, 2006 4:06 PM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1924', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1924', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1924></SPAN><SPAN id=replyMessage_1924></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 15px; MARGIN-RIGHT: 15px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1925 style="CURSOR: hand">Re: infoq.com/spring 
+</SPAN></A>by Floyd Marinescu Posted Aug 9, 2006 5:24 PM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1925', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1925', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1925></SPAN><SPAN id=replyMessage_1925></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 30px; MARGIN-RIGHT: 30px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1930 style="CURSOR: hand">Great article! 
+</SPAN></A>by Michael Klishin Posted Aug 9, 2006 11:33 PM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1930', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1930', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1930></SPAN><SPAN id=replyMessage_1930></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 0px; MARGIN-RIGHT: 0px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1931 style="CURSOR: hand">Printing article on 
+Firefox is not correct </SPAN></A>by Peter Bona Posted Aug 10, 2006 3:14 AM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1931', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1931', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1931></SPAN><SPAN id=replyMessage_1931></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 15px; MARGIN-RIGHT: 15px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1933 style="CURSOR: hand">Re: Printing article 
+on Firefox is not correct </SPAN></A>by Floyd Marinescu Posted Aug 10, 2006 8:32 
+AM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1933', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1933', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1933></SPAN><SPAN id=replyMessage_1933></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 30px; MARGIN-RIGHT: 30px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1935 style="CURSOR: hand">Re: Printing article 
+on Firefox is not correct </SPAN></A>by Peter Bona Posted Aug 10, 2006 9:18 AM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1935', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1935', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1935></SPAN><SPAN id=replyMessage_1935></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 0px; MARGIN-RIGHT: 0px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1936 style="CURSOR: hand">afterThrow() 
+</SPAN></A>by Cedric Beust Posted Aug 10, 2006 2:33 PM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1936', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1936', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1936></SPAN><SPAN id=replyMessage_1936></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 15px; MARGIN-RIGHT: 15px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_1940 style="CURSOR: hand">Re: afterThrow() 
+</SPAN></A>by Adrian Colyer Posted Aug 11, 2006 2:42 AM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_1940', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_1940', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_1940></SPAN><SPAN id=replyMessage_1940></SPAN>
+<DIV class=forum-list-tree 
+style="LEFT: 30px; MARGIN-RIGHT: 30px; POSITION: relative"><A 
+class=forum-list><SPAN id=tooltip_2018 style="CURSOR: hand">Sources 
+</SPAN></A>by William Louth Posted Aug 15, 2006 12:41 AM
+<SCRIPT language=javascript type=text/javascript>
+	    	Event.observe('tooltip_2018', 'mouseover', initializeTooltip);
+	    	Event.observe('tooltip_2018', 'mouseout', deintializeTooltip);	    	
+	  	</SCRIPT>
+ </DIV><SPAN id=replyTree_2018></SPAN><SPAN id=replyMessage_2018></SPAN>
+<DIV class=comments-sort><SPAN id=comments-sort><A class=comment-sort-desc 
+href="javascript:changeOrder(2);">Sort by date descending</A> </SPAN></DIV>
+<OL class=comments>
+  <LI id=comment-1922><A name=view_1922></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1922>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1922" 
+  name=1922>Excellent article</A></H4>
+  <P class=comment-author>Aug 9, 2006 11:05 AM by <STRONG>Jonas Bonér 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1922>
+  <P><SPAN id=quote_1922>I enjoyed reading it. <BR>Thanks Adrian. 
+  </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1922):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1922);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1922></SPAN><SPAN 
+  id=replyFlatMessage_1922></SPAN>
+  <LI id=comment-1924><A name=view_1924></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1924>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1924" 
+  name=1924>infoq.com/spring</A></H4>
+  <P class=comment-author>Aug 9, 2006 4:06 PM by <STRONG>Geoffrey Wiseman 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1924>
+  <P><SPAN id=quote_1924>What's "infoq.com/spring"? A topic? Why isn't it listed 
+  in the topics above? </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1924):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1924);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1924></SPAN><SPAN 
+  id=replyFlatMessage_1924></SPAN>
+  <LI id=comment-1925><A name=view_1925></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1925>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1925" 
+  name=1925>Re: infoq.com/spring</A></H4>
+  <P class=comment-author>Aug 9, 2006 5:24 PM by <STRONG>Floyd Marinescu 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1925>
+  <P><SPAN id=quote_1925>
+  <BLOCKQUOTE>What's "infoq.com/spring"? A topic? Why isn't it listed in the 
+    topics above?</BLOCKQUOTE><BR><BR>If you look beneath the body of the article, 
+  you'll see "Tags Spring, AspectJ". You can click on those to see any all 
+  content on InfoQ about Spring or AspectJ. If you look at the top of the 
+  article you can see "topic - AOP", which functions the same. I added a link 
+  manually to the news item linking to this article so that people would notice 
+  the functionality. </SPAN>
+  <P></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1925):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1925);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1925></SPAN><SPAN 
+  id=replyFlatMessage_1925></SPAN>
+  <LI id=comment-1930><A name=view_1930></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1930>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1930" 
+  name=1930>Great article!</A></H4>
+  <P class=comment-author>Aug 9, 2006 11:33 PM by <STRONG>Michael Klishin 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1930>
+  <P><SPAN id=quote_1930>Very nice article on AOP. Probably the most clean 
+  explanation of AOP terminology and principles that I've ever read. Keep on a 
+  great job, i21 &amp; InfoQ! </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1930):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1930);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1930></SPAN><SPAN 
+  id=replyFlatMessage_1930></SPAN>
+  <LI id=comment-1931><A name=view_1931></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1931>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1931" 
+  name=1931>Printing article on Firefox is not correct</A></H4>
+  <P class=comment-author>Aug 10, 2006 3:14 AM by <STRONG>Peter Bona 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1931>
+  <P><SPAN id=quote_1931>When clicking on the print image right above, Firefox 
+  (1.5.0.6) is leaving some text out on the right, you cannot see the whole 
+  text. IE works fine. Could you pls check if there is something you could do 
+  about it? Thanks!<BR><BR>Thanks for the article, it is really nice! 
+  </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1931):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1931);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1931></SPAN><SPAN 
+  id=replyFlatMessage_1931></SPAN>
+  <LI id=comment-1933><A name=view_1933></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1933>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1933" 
+  name=1933>Re: Printing article on Firefox is not correct</A></H4>
+  <P class=comment-author>Aug 10, 2006 8:32 AM by <STRONG>Floyd Marinescu 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1933>
+  <P><SPAN id=quote_1933>Hi Peter, what page/paragraph do you notice the 
+  problem? I have the same version and it seems to print fine. 
+</SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1933):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1933);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1933></SPAN><SPAN 
+  id=replyFlatMessage_1933></SPAN>
+  <LI id=comment-1935><A name=view_1935></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1935>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1935" 
+  name=1935>Re: Printing article on Firefox is not correct</A></H4>
+  <P class=comment-author>Aug 10, 2006 9:18 AM by <STRONG>Peter Bona 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1935>
+  <P><SPAN id=quote_1935>Like this page. I mean <A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps" 
+  target=_blank>www.infoq.com/articles/Simplifying-Enterprise-Apps</A>.<BR><BR>I 
+  was playing with the screen resolution and settings in Print Preview, but none 
+  of the attempts worked. Anyway, I managed to print it in IE and that is fine 
+  for now.<BR>Thanks. </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1935):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1935);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1935></SPAN><SPAN 
+  id=replyFlatMessage_1935></SPAN>
+  <LI id=comment-1936><A name=view_1936></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1936>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1936" 
+  name=1936>afterThrow()</A></H4>
+  <P class=comment-author>Aug 10, 2006 2:33 PM by <STRONG>Cedric Beust 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1936>
+  <P><SPAN id=quote_1936>Hi Adrian,<BR><BR>Quick question: in the section about 
+  throwing, it's not clear that your afterThrowing() pointcut *replaces* the 
+  initial exception. I'm assuming that's what it does, right? It wouldn't make 
+  much sense to throw the original exception and then a DAOException, but you 
+  might want to clarify how this replacement actually works.<BR><BR>-- 
+  <BR>Cedric </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1936):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1936);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1936></SPAN><SPAN 
+  id=replyFlatMessage_1936></SPAN>
+  <LI id=comment-1940><A name=view_1940></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_1940>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_1940" 
+  name=1940>Re: afterThrow()</A></H4>
+  <P class=comment-author>Aug 11, 2006 2:42 AM by <STRONG>Adrian Colyer 
+  </STRONG></P></SPAN></DIV><SPAN id=body_1940>
+  <P><SPAN id=quote_1940>Hi Cedric,<BR>Your interpretion is correct. If after 
+  throwing advice itself throws an exception, then the exception thrown by the 
+  advice will be seen by the client. If the after throwing advice completes 
+  normally, then the original exception will propagate to the client. 
+  <BR><BR>The consequence of this is that you can use after throwing for 
+  exception *translation*, or for logging or taking other additional actions, 
+  but you can't use it to *handle* an exception condition. For that you have to 
+  use around advice, with a pattern that looks like this:<BR><BR></P><PRE><BR>Object around() : some_pc() {<BR>  try {<BR>    return proceed();<BR>  }<BR>  catch(ExceptionToBeHandled ex) {<BR>    // handle condition here<BR>    return exceptionalConditionReturnValue;<BR>  }<BR>}<BR></PRE><BR><BR>(or 
+  the equivalent in @Aspect or Spring XML styles).<BR><BR>Regards, Adrian. 
+  </SPAN>
+  <P></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(1940):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(1940);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_1940></SPAN><SPAN 
+  id=replyFlatMessage_1940></SPAN>
+  <LI id=comment-2018><A name=view_2018></A>
+  <DIV class=comment-header>
+  <P class=comment-top><A 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Back to 
+  top</A></P><SPAN id=header_2018>
+  <H4><A onclick="javascript:hideTooltip();return true;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#view_2018" 
+  name=2018>Sources</A></H4>
+  <P class=comment-author>Aug 15, 2006 12:41 AM by <STRONG>William Louth 
+  </STRONG></P></SPAN></DIV><SPAN id=body_2018>
+  <P><SPAN id=quote_2018>Hi Adrian,<BR><BR>Are you planning on releasing the 
+  sources. It would be great to show how one you easily implement the profiling 
+  strategy mapping to our Tracer API (<A 
+  href="http://www.jinspired.com/products/jxinsight/api/com/jinspired/jxinsight/trace/Tracer.html" 
+  target=_blank>http://www.jinspired.com/products/jxinsight/api/com/jinspired/jxinsight/trace/Tracer.html</A>) 
+  and have it easily integrated within our management console while adding 
+  additional JMV resource metrics (cpu, thread waiting, thread blocking, gc, 
+  object allocs). <BR><BR>We previously published a performance insight article 
+  based on our Spring 1.x trace extension.<BR><A 
+  href="http://www.jinspired.com/products/jxinsight/springtracing.html" 
+  target=_blank>http://www.jinspired.com/products/jxinsight/springtracing.html</A><BR><BR>Regards,<BR><BR>William 
+  Louth<BR>JXInsight Product Architect<BR>JInspired<BR><BR>"Java EE tuning, 
+  testing, tracing, and monitoring with JXInsight"<BR><A 
+  href="http://www.jinspired.com/" target=_blank>http://www.jinspired.com/</A> 
+  </SPAN></P></SPAN>
+  <P class=comment-footer><A class=comment-reply 
+  onclick="javascript:loggedIn?replyFromFlat(2018):showLoginWindow(this,ALIGN_RIGHT,new Function('replyFromFlat(2018);'));" 
+  href="javascript:void(0)">Reply</A></P><SPAN id=replyFlat_2018></SPAN><SPAN 
+  id=replyFlatMessage_2018></SPAN><SPAN id=lastMessages></SPAN><SPAN 
+  id=replyFlatMessage_1891></SPAN></LI></OL>
+<DIV class=box-bottom></DIV></DIV></DIV>
+<DIV class=bottom-corners>
+<DIV></DIV></DIV></DIV></DIV></DIV></DIV><!-- right side start -->
+<DIV id=rightbar>
+<DIV id=right-wrapper><!-- box start -->
+<DIV class=box>
+<H2>Exclusive Content</H2>
+<UL class=menu id=tabsmenu>
+  <LI class=m-ALL_EXCEPT_NEWS-on id=tab_ALL_EXCEPT_NEWS><A 
+  onclick="ContentSummary.switchTab('ALL_EXCEPT_NEWS');return false;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">All</A> 
+</LI>
+  <LI class=m-ARTICLE-off id=tab_ARTICLE><A 
+  onclick="ContentSummary.switchTab('ARTICLE');return false;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Articles</A> 
+  </LI>
+  <LI class=m-PRESENTATION-off id=tab_PRESENTATION><A 
+  onclick='ContentSummary.switchTab("PRESENTATION");return false;' 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Presentations</A> 
+  </LI>
+  <LI class=m-INTERVIEW-off id=tab_INTERVIEW><A 
+  onclick='ContentSummary.switchTab("INTERVIEW");return false;' 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Interviews</A> 
+  </LI>
+  <LI class=m-MINIBOOK-off id=tab_MINIBOOK><A 
+  onclick='ContentSummary.switchTab("MINIBOOK");return false;' 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Minibooks</A> 
+  </LI></UL>
+<DIV class=top-corners>
+<DIV></DIV></DIV>
+<DIV class=box-content>
+<DIV class=box-content-2>
+<DIV class=box-content-3 id=rightbarcontentbox>
+<FORM id=tabstateform action=""><INPUT id=startIndex type=hidden value=0 
+name=startIndex> <INPUT id=selectedTab type=hidden value=ALL_EXCEPT_NEWS 
+name=selectedTab> <INPUT id=rightBarLanguage type=hidden value=en name=language> 
+</FORM>
+<DIV class=entry>
+<H1 class=ex-interviews><A 
+href="http://www.infoq.com/interviews/windows-workflow-foundation-scott-allan">Windows 
+Workflow with Scott Allan</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/interviews/windows-workflow-foundation-scott-allan"><IMG 
+alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/scottallan.jpg"></A></P>
+<P>Scott Allan is interviewed by David Totzke on Windows Workflow Foundation 
+about the capabilities of WWF, how it integrates into apps, and architectural 
+pattterns possible with WWF.</P>
+<UL class="info link-col">
+  <LI><A id=4 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/dotnet/" name=dotnet>.NET</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 20, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/interviews/windows-workflow-foundation-scott-allan"><SPAN>&nbsp;</SPAN> 
+  </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-articles><A 
+href="http://www.infoq.com/articles/scaling-software-agility">Book Excerpt: 
+Scaling Software Agility</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/articles/scaling-software-agility"><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/cover.jpg"></A></P>
+<P>InfoQ brings you useful excerpts from "Scaling Software Agility: Best 
+Practices for Large Enterprises" on how Agile offers competitive advantage, and 
+why Waterfall doesn't work.</P>
+<UL class="info link-col">
+  <LI><A id=3 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/agile/" name=agile>Agile</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 19, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/articles/scaling-software-agility"><SPAN>&nbsp;</SPAN> 
+  </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-interviews><A 
+href="http://www.infoq.com/interviews/rails-engines-james-adam">James Adam on 
+Rails Engines and Ruby in the Enterprise</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/interviews/rails-engines-james-adam"><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/james%20adam.jpg"></A></P>
+<P>InfoQ interviews Dr. James Adam, notable member of the Ruby community about 
+his pioneering work with Rails Engines and what it's like to be doing heavy Ruby 
+development in enterprise settings.</P>
+<UL class="info link-col">
+  <LI><A id=5 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/ruby/" name=ruby>Ruby</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 19, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/interviews/rails-engines-james-adam"><SPAN>&nbsp;</SPAN> 
+  </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-articles><A 
+href="http://www.infoq.com/articles/properties-metaprogramming">Adding 
+Properties to Ruby Metaprogramatically</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/articles/properties-metaprogramming"><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/image_meta_programming.jpg"></A></P>
+<P>Werner Schuster walks us through a simple example of adding Java-style 
+properties support to Ruby classes via a Mixin by using elements of 
+meta-programming.</P>
+<UL class="info link-col">
+  <LI><A id=5 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/ruby/" name=ruby>Ruby</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 18, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/articles/properties-metaprogramming"><SPAN>&nbsp;</SPAN> 
+  1 </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-interviews><A 
+href="http://www.infoq.com/interviews/aop-design-ramnivas-laddad">Ramnivas 
+Laddad on AOP Design, Modelling, and Policy Enforcement</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/interviews/aop-design-ramnivas-laddad"><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/ramni.jpg"></A></P>
+<P>Ramnivas Laddad talks about domain aspects, how to design and model with 
+aspects, how to enforce policies with aspects, how he used aspects to diagnose 
+problems in production.</P>
+<UL class="info link-col">
+  <LI><A id=1 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/java/" name=java>Java</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 17, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/interviews/aop-design-ramnivas-laddad"><SPAN>&nbsp;</SPAN> 
+  3 </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-articles><A 
+href="http://www.infoq.com/articles/restlet-louvel-interview">Interview: Jérome 
+Louvel about Restlet</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/articles/restlet-louvel-interview"><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/logo200.gif"></A></P>
+<P>In this exclusive InfoQ interview, Jérome Louvel talks about Restlet, a Java 
+framework for building Web applications following the REST architectural 
+style.</P>
+<UL class="info link-col">
+  <LI><A id=5 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/ruby/" name=ruby>Ruby</A>, <A id=2 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/soa/" name=soa>SOA</A>, <A id=1 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/java/" name=java>Java</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 17, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/articles/restlet-louvel-interview"><SPAN>&nbsp;</SPAN> 
+  </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-interviews><A 
+href="http://www.infoq.com/interviews/java-office-interop-ted-neward">Ted Neward 
+on Interop &amp; Office Integration</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/interviews/java-office-interop-ted-neward"><IMG 
+alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/tedsmall.jpg"></A></P>
+<P>Ted Neward talks about Java and .NET integration focusing on MS Office 
+automation, and explains how various interop approaches (in-proc, messaging, web 
+services) work and when to use them.</P>
+<UL class="info link-col">
+  <LI><A id=4 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/dotnet/" name=dotnet>.NET</A>, <A id=1 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/java/" name=java>Java</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 16, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/interviews/java-office-interop-ted-neward"><SPAN>&nbsp;</SPAN> 
+  2 </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<DIV class=entry>
+<H1 class=ex-articles><A 
+href="http://www.infoq.com/articles/SOA-Agile-Friends-Or-Foes">SOA and Agile: 
+Friends or Foes?</A></H1>
+<P class=image><A 
+href="http://www.infoq.com/articles/SOA-Agile-Friends-Or-Foes"><IMG alt="" 
+src="InfoQ Simplifying Enterprise Applications with Spring 2_0 and AspectJ_files/image_agile_soa.jpg"></A></P>
+<P>SOA and Agile: Which is right? Which is better? Are we comparing apples and 
+oranges? Can they be used together, and if so, how? This is a discussion topic 
+so come and put in your 2 cents!</P>
+<UL class="info link-col">
+  <LI><A id=3 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/agile/" name=agile>Agile</A>, <A id=2 
+  onclick="try {CategoryPopup.showPopup(this);} catch(e) {}; return false;" 
+  href="http://www.infoq.com/soa/" name=soa>SOA</A>, 
+  <LI class=author><SPAN>&nbsp;</SPAN>Apr 14, 2007, 
+  <LI class=comments><A 
+  href="http://www.infoq.com/articles/SOA-Agile-Friends-Or-Foes"><SPAN>&nbsp;</SPAN> 
+  14 </A></LI></UL></DIV>
+<DIV class=clearer></DIV>
+<UL class="newsnav link-col">
+  <LI><A onclick="ContentSummary.setStartIndex('8');return false;" 
+  href="http://www.infoq.com/articles/Simplifying-Enterprise-Apps#">Older 
+  &gt;</A> </LI></UL>
+<DIV class=box-bottom></DIV></DIV></DIV>
+<DIV class=bottom-corners>
+<DIV></DIV></DIV></DIV></DIV><!-- box end -->
+<SCRIPT type=text/javascript>
+		ContentSummary.setSelectedTab();
+	</SCRIPT>
+</DIV></DIV><!-- right side end -->
+<DIV class=clearer></DIV>
+<DIV id=footer>
+<P>InfoQ.com and all content copyright © 2006 – 2007 C4Media Inc. InfoQ.com 
+hosted at <A href="http://www.contegix.com/">Contegix</A>, the best ISP weve 
+ever worked with. <A href="http://www.infoq.com/PrivacyPolicy.html">Privacy 
+policy</A> </P></DIV></DIV>
+<SCRIPT type=text/javascript>
+	var includeName = 'Include';
+	var excludeName = 'Exclude';
+	var includeHint = 'You can include this category.';
+	var excludeHint = 'You can exclude this category.';
+	var excludeCategoryMessage = 'You can re-include from your profile personalization, or right now.<BR />';
+	var viewallCategoryMessage = 'You can view all items that belong to this category.';
+	var busyMessage = 'Please wait...';
+	var contextPath = '' + '/';
+	var viewallCategoryPath= 'en';
+	var includeExcludeLink= true;
+</SCRIPT>
+</BODY></HTML>

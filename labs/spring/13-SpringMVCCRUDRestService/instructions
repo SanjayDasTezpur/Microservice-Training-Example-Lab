@@ -1,0 +1,17 @@
+1. Retrieve all users
+
+Open POSTMAN tool, select request type [GET for this usecase], specify the operation uri.
+
+http://localhost:8080/Spring4MVCCRUDRestService/user/
+
+
+2. Retrieve Single User
+
+Specify a GET with /user/1 , click on send.
+
+http://localhost:8080/Spring4MVCCRUDRestService/user/1
+
+3. Create a User
+
+Select the method as POST, specify uri as /user/, specify body in POSTMAN body tab, select the type [application/json].
+

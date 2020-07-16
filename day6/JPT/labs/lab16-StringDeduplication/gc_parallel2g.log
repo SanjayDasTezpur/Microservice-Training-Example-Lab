@@ -1,0 +1,9 @@
+Java HotSpot(TM) 64-Bit Server VM (25.92-b14) for windows-amd64 JRE (1.8.0_92-b14), built on Mar 31 2016 21:03:04 by "java_re" with MS VC++ 10.0 (VS2010)
+Memory: 4k page, physical 8284632k(4380816k free), swap 15464140k(7931636k free)
+CommandLine flags: -XX:InitialHeapSize=33554432 -XX:MaxHeapSize=536870912 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:-UseLargePagesIndividualAllocation -XX:+UseParallelGC 
+2018-03-26T16:52:20.845+0530: 0.406: [GC (Allocation Failure) [PSYoungGen: 8704K->1008K(9728K)] 8704K->3904K(31744K), 0.0259304 secs] [Times: user=0.09 sys=0.02, real=0.03 secs] 
+2018-03-26T16:52:20.889+0530: 0.450: [GC (Allocation Failure) [PSYoungGen: 9712K->1008K(18432K)] 12608K->7712K(40448K), 0.1242578 secs] [Times: user=0.13 sys=0.00, real=0.13 secs] 
+2018-03-26T16:54:01.042+0530: 100.603: [GC (Allocation Failure) [PSYoungGen: 18416K->992K(18432K)] 25120K->15408K(40448K), 0.0511664 secs] [Times: user=0.16 sys=0.01, real=0.05 secs] 
+2018-03-26T16:54:01.093+0530: 100.654: [Full GC (Ergonomics) [PSYoungGen: 992K->0K(18432K)] [ParOldGen: 14416K->15301K(33280K)] 15408K->15301K(51712K), [Metaspace: 2604K->2604K(1056768K)], 0.6564528 secs] [Times: user=2.38 sys=0.03, real=0.66 secs] 
+2018-03-26T16:57:21.767+0530: 301.328: [GC (Allocation Failure) [PSYoungGen: 17408K->1024K(34816K)] 32709K->31733K(68096K), 0.0999037 secs] [Times: user=0.33 sys=0.02, real=0.10 secs] 
+2018-03-26T16:57:21.867+0530: 301.428: [Full GC (Ergonomics) [PSYoungGen: 1024K->0K(34816K)] [ParOldGen: 30709K->31651K(58368K)] 31733K->31651K(93184K), [Metaspace: 2604K->2604K(1056768K)], 0.8397294 secs] [Times: user=2.56 sys=0.02, real=0.84 secs] 

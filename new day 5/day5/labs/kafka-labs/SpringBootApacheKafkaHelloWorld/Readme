@@ -1,0 +1,39 @@
+Zookeeper setup
+---------------
+1. Rename file “zoo_sample.cfg” to “zoo.cfg”
+2. Set the data directory in zoo.cfg
+3. define ZOOKEEPER_HOME env variable and it to the path
+4. start zookeeper (zkServer.cmd)
+
+Kafka setup
+-----------
+
+1. Go to your Kafka config directory & edit server.properties (log,zookeeper properties)
+2. Start the server \bin\windows\kafka-server-start.bat ..\..\config\server.properties
+
+
+
+Steps to run the example:
+-------------------------
+
+1. kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic  test_topic --from-beginning
+2. Hit the url as follows- http://localhost:8080/kafka/producer?message=test 
+
+
+
+Practice:
+========
+
+Creating topics
+---------------
+
+kafka-topics.bat --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+
+Creating a Producer and Consumer to Test Server
+-----------------------------------------------
+
+kafka-console-producer.bat --broker-list localhost:9092 --topic test
+
+kafka-console-consumer.bat --zookeeper localhost:2181 --topic test --from-beginning
+

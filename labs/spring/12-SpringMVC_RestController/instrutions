@@ -1,0 +1,19 @@
+
+From Browser :
+
+Access the REST Endpoint, since we have included the jackson-dataformat-xml.jar in classpath, the 
+response we  will get will be XML.
+
+http://localhost:8080/Spring4MVCHelloWorldRestServiceDemo/hello/Messi
+
+
+If We want Spring to serve JSON response instead, you can either
+– remove the jackson-dataformat-xml.jar [comment it in pom.xml, build and deploy it again].
+– Or Suffix the URL with .json
+
+
+Using Postman:
+
+Set the ‘Accept’ request header [to appliction/json or application/xml ] and send the request. Check the response body:
+
+http://localhost:8080/Spring4MVCHelloWorldRestServiceDemo/hello/Messi

@@ -1,0 +1,11 @@
+package lab1;
+
+public class Client {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Calculator cal = (float a, float b) -> a+b;
+	}
+
+}

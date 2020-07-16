@@ -1,0 +1,14 @@
+In your hibernate.cfg.xml change the property “current_session_context_class” to “managed”.
+
+To create a session and start a transaction in that session do this…
+
+   org.hibernate.classic.Session session = HibernateUtil.getSessionFactory().openSession();
+   session.setFlushMode(FlushMode.MANUAL);
+   ManagedSessionContext.bind(session);
+   session.beginTransaction();
+To commit a transaction in the session do this…
+
+   ManagedSessionContext.unbind(HibernateUtil.getSessionFactory());
+   session.flush();
+   session.getTransaction().commit();
+   session.close();

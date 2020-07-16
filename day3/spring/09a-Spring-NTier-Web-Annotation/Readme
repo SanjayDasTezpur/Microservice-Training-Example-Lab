@@ -1,0 +1,5 @@
+1. To run the example
+mvn jetty:run
+
+2. To test the example
+http://localhost:8080/springmvc/

@@ -1,0 +1,1 @@
+@EnableJms enables detection of JmsListener annotations on any Spring-managed bean in the container.

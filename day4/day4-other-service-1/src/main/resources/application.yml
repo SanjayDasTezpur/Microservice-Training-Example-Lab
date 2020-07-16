@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: Other-Service
+  cloud: 
+    config:
+      uri: http://localhost:8084
+server:
+  port: 8081
+  

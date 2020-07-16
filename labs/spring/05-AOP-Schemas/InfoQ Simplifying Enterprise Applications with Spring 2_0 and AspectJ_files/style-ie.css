@@ -1,0 +1,39 @@
+#rightbar H1 {
+	HEIGHT: 31px
+}
+#right-wrapper {
+	POSITION: relative
+}
+.contribute {
+	RIGHT: 16px
+}
+#content-full .contribute {
+	RIGHT: 44px
+}
+#content {
+	Z-INDEX: -1
+}
+.menu {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; RIGHT: 1px; PADDING-BOTTOM: 0px; MARGIN: 0px; OVERFLOW: hidden; WIDTH: 37px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none; POSITION: absolute; TOP: 30px
+}
+#content-full .bio {
+	HEIGHT: 110px
+}
+#sidebar .box UL LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.popup {
+	PADDING-RIGHT: 7px; PADDING-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; PADDING-BOTTOM: 7px; MARGIN: 0px; PADDING-TOP: 0px; POSITION: absolute
+}
+.popup-wrapper {
+	BORDER-RIGHT: #76b2de 4px solid; PADDING-RIGHT: 5px; BORDER-TOP: #76b2de 4px solid; PADDING-LEFT: 5px; BACKGROUND: #fafafa; PADDING-BOTTOM: 5px; BORDER-LEFT: #76b2de 4px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #76b2de 4px solid
+}
+#rightbar .box-content-3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; POSITION: relative; HEIGHT: 500px
+}
+.box .box-content-4 {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 12px; BACKGROUND: url(i/bg-box-blue-borders.gif) repeat-y right top; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 100%; PADDING-TOP: 0px
+}
+.tag-head2 {
+	WIDTH: 100%
+}
